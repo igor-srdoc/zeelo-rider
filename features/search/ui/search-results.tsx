@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import type { Ride } from "@/features/rides/api/use-rides";
-import { RideCard } from "@/features/rides/ui/RideCard";
+import { RideCard } from "@/features/rides/ui/ride-card";
 
 type SearchResultsProps = {
   rides: Ride[] | undefined;

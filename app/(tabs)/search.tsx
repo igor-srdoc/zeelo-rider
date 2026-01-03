@@ -2,12 +2,12 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { useSearchRides } from "@/features/rides/api/use-search-rides";
-import { SearchHeader } from "@/features/search/ui/SearchHeader";
-import { SearchInput } from "@/features/search/ui/SearchInput";
-import { SearchLoadingState } from "@/features/search/ui/SearchLoadingState";
-import { SearchErrorCard } from "@/features/search/ui/SearchErrorCard";
-import { SearchResults } from "@/features/search/ui/SearchResults";
-import { NoResults } from "@/features/search/ui/NoResults";
+import { SearchHeader } from "@/features/search/ui/search-header";
+import { SearchInput } from "@/features/search/ui/search-input";
+import { SearchLoadingState } from "@/features/search/ui/search-loading-state";
+import { SearchErrorCard } from "@/features/search/ui/search-error-card";
+import { SearchResults } from "@/features/search/ui/search-results";
+import { NoResults } from "@/features/search/ui/no-results";
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState("");

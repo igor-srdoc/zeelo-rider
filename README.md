@@ -1,50 +1,124 @@
-# Welcome to your Expo app 👋
+# Zeelo Rider App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native mobile application for Zeelo riders to manage and search for their rides.
 
-## Get started
+## Tech Stack
 
-1. Install dependencies
+- **Framework**: [Expo](https://expo.dev) with React Native
+- **Routing**: [Expo Router](https://docs.expo.dev/router/introduction/) (file-based routing)
+- **Styling**: [NativeWind](https://www.nativewind.dev/) (Tailwind CSS for React Native)
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Data Fetching**: [React Query](https://tanstack.com/query/latest)
+- **Backend**: [Supabase](https://supabase.com/)
+- **Language**: TypeScript
+
+## Architecture
+
+This app follows a **feature-based architecture** where code is organized by domain features rather than technical layers. Components are further organized by view context (list vs. search).
+
+📖 **For detailed architecture documentation, see [docs/architecture.md](./docs/architecture.md)**
+
+### Key Features
+
+- **Rides List**: View and manage your upcoming rides
+- **Search**: Find rides by workplace or school
+- **Account**: User profile and settings
+
+### Directory Structure
+
+```
+zeelo-rider/
+├── app/                    # Expo Router screens (thin composition layer)
+│   └── (tabs)/            # Tab-based navigation
+├── features/              # Feature modules
+│   └── rides/
+│       ├── api/          # Data fetching hooks
+│       ├── search.store.ts # Search state management
+│       └── ui/           # UI components by view context
+│           ├── list/     # Rides list view components
+│           └── search/   # Search view components
+├── lib/                   # Shared utilities
+└── ui/                    # Shared UI components
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- npm or pnpm
+- Expo Go app (for testing on physical device)
+
+### Installation
+
+1. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Set up environment variables**
+
+   Create a `.env.local` file in the root directory with your Supabase credentials:
+
+   ```env
+   EXPO_PUBLIC_SUPABASE_URL=your_supabase_url
+   EXPO_PUBLIC_SUPABASE_KEY=your_supabase_key
+   ```
+
+3. **Start the development server**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+### Running the App
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+After starting the dev server, you can:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Scan QR code** with Expo Go app on your phone
+- Press **`a`** to open in Android emulator
+- Press **`i`** to open in iOS simulator
+- Press **`w`** to open in web browser
 
-## Get a fresh project
+## Development
 
-When you're ready, run:
+### Project Structure
 
-```bash
-npm run reset-project
-```
+- **`app/(tabs)/`** - Screen files (composition only, no business logic)
+- **`features/rides/api/`** - React Query hooks for data fetching
+- **`features/rides/ui/list/`** - Components for the rides list view
+- **`features/rides/ui/search/`** - Components for the search view
+- **`lib/`** - Shared utilities (Supabase client, helpers)
+- **`ui/`** - Shared UI components (error cards, loading states)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Coding Conventions
 
-## Learn more
+- **File names**: kebab-case (e.g., `ride-card.tsx`)
+- **Component exports**: PascalCase (e.g., `RideCard`)
+- **Hooks**: camelCase (e.g., `useRides`)
+- **Self-contained components**: Components access data via stores or hooks, no prop drilling
 
-To learn more about developing your project with Expo, look at the following resources:
+### Key Principles
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+1. **Feature-based organization** - Code organized by domain features
+2. **View context organization** - UI components grouped by where they're used (list/search)
+3. **Thin screen layer** - Screens only compose components, no logic
+4. **Self-contained components** - Components manage their own state and data
+5. **No prop drilling** - Use Zustand stores and React Query hooks
 
-## Join the community
+## Documentation
 
-Join our community of developers creating universal apps.
+- **Architecture**: [docs/architecture.md](./docs/architecture.md) - Detailed architecture documentation
+- **Expo Docs**: [https://docs.expo.dev](https://docs.expo.dev)
+- **React Native**: [https://reactnative.dev](https://reactnative.dev)
+- **NativeWind**: [https://www.nativewind.dev](https://www.nativewind.dev)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Resources
+
+- [Expo documentation](https://docs.expo.dev/)
+- [Expo Router introduction](https://docs.expo.dev/router/introduction/)
+- [React Native documentation](https://reactnative.dev/)
+- [NativeWind documentation](https://www.nativewind.dev/)
+- [Zustand documentation](https://zustand-demo.pmnd.rs/)
+- [React Query documentation](https://tanstack.com/query/latest)

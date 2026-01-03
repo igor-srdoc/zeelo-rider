@@ -20,3 +20,4 @@ export function useSearchRides(query: string) {
     enabled: query.trim().length > 0,
   });
 }
+

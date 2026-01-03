@@ -7,30 +7,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
-
-type Ride = {
-  id: string;
-  origin: string;
-  destination: string;
-  date: string;
-  time: string;
-  price: number;
-};
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-GB", {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-  });
-}
-
-function formatPrice(price: number): string {
-  return `£${price.toFixed(2)}`;
-}
+import { useRides, type Ride } from "@/hooks/use-rides";
+import { formatDate, formatPrice } from "@/lib/utils";
 
 function RideCard({ ride }: { ride: Ride }) {
   return (
@@ -112,22 +90,7 @@ function HelpCard() {
 }
 
 export default function RidesScreen() {
-  const {
-    data: rides,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["rides"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("rides")
-        .select("*")
-        .order("date", { ascending: true });
-
-      if (error) throw error;
-      return data as Ride[];
-    },
-  });
+  const { data: rides, isLoading, error } = useRides();
 
   const hasRides = rides && rides.length > 0;
 

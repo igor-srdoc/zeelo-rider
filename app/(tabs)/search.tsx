@@ -1,11 +1,11 @@
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SearchHeader } from "@/features/search/ui/search-header";
-import { SearchInput } from "@/features/search/ui/search-input";
-import { SearchLoadingState } from "@/features/search/ui/search-loading-state";
-import { SearchErrorCard } from "@/features/search/ui/search-error-card";
-import { SearchResults } from "@/features/search/ui/search-results";
-import { SearchNoResults } from "@/features/search/ui/search-no-results";
+import { SearchHeader } from "@/features/rides/ui/search/search-header";
+import { SearchInput } from "@/features/rides/ui/search/search-input";
+import { SearchLoadingState } from "@/features/rides/ui/search/search-loading-state";
+import { SearchErrorCard } from "@/features/rides/ui/search/search-error-card";
+import { SearchResults } from "@/features/rides/ui/search/search-results";
+import { SearchNoResults } from "@/features/rides/ui/search/search-no-results";
 
 export default function SearchScreen() {
   return (

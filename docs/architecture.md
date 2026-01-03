@@ -21,24 +21,23 @@ zeelo-rider/
 │   │   ├── api/                 # Data fetching hooks
 │   │   │   ├── use-rides.ts
 │   │   │   └── use-search-rides.ts
-│   │   └── ui/                  # UI components
-│   │       ├── ride-card.tsx          # ⭐ Shared component
-│   │       ├── rides-header.tsx
-│   │       ├── rides-loading-state.tsx
-│   │       ├── rides-error-card.tsx
-│   │       ├── rides-list.tsx
-│   │       ├── find-ride-card.tsx
-│   │       └── rides-help-card.tsx
-│   │
-│   └── search/
-│       ├── search.store.ts      # Zustand state management
-│       └── ui/                  # Search-specific UI
-│           ├── search-header.tsx
-│           ├── search-input.tsx
-│           ├── search-loading-state.tsx
-│           ├── search-error-card.tsx
-│           ├── search-results.tsx
-│           └── search-no-results.tsx
+│   │   ├── search.store.ts      # Zustand state management for search
+│   │   └── ui/                  # UI components organized by context
+│   │       ├── find-ride-card.tsx     # Main screen cards
+│   │       ├── rides-help-card.tsx
+│   │       ├── list/            # Rides list view components
+│   │       │   ├── ride-card.tsx      # ⭐ Shared ride card
+│   │       │   ├── rides-header.tsx
+│   │       │   ├── rides-loading-state.tsx
+│   │       │   ├── rides-error-card.tsx
+│   │       │   └── rides-list.tsx
+│   │       └── search/          # Search view components
+│   │           ├── search-header.tsx
+│   │           ├── search-input.tsx
+│   │           ├── search-loading-state.tsx
+│   │           ├── search-error-card.tsx
+│   │           ├── search-results.tsx
+│   │           └── search-no-results.tsx
 │
 ├── ui/                          # Shared UI components
 │   ├── error-card.tsx          # Reusable error card
@@ -54,17 +53,23 @@ zeelo-rider/
 
 ### 1. Feature-Based Organization
 
-Each feature (`rides`, `search`) contains:
+The `rides` feature contains all rides-related functionality:
 
 - **`api/`** - Data fetching logic (React Query hooks)
-- **`ui/`** - UI components specific to that feature
-- **`*.store.ts`** - State management (Zustand stores)
+- **`search.store.ts`** - State management for search functionality (Zustand store)
+- **`ui/`** - UI components organized by view context:
+  - **`list/`** - Components for the rides list view
+  - **`search/`** - Components for the search view
+  - Top-level: Shared cards used across views
 
-### 2. Shared Components
+### 2. Organized by View Context
 
-Components used across features live in the most relevant feature:
+UI components are organized by the view they belong to:
 
-- **`ride-card`** - Lives in `features/rides/ui/` but used in both rides and search
+- **`ui/list/`** - Components specific to the rides list view
+- **`ui/search/`** - Components specific to the search view
+- **`ui/`** (top-level) - Shared cards like `find-ride-card` and `rides-help-card`
+- **`ride-card`** - Lives in `features/rides/ui/list/` and is reused in search results
 
 ### 3. Thin Screen Layer
 
@@ -93,13 +98,18 @@ Each component:
 ## Example: Search Screen with Zustand
 
 ```tsx
-// features/search/search.store.ts
+// features/rides/search.store.ts
 export const useSearchStore = create<SearchStore>((set) => ({
   searchQuery: "",
   setSearchQuery: (query) => set({ searchQuery: query }),
 }));
 
 // app/(tabs)/search.tsx
+// All components imported from features/rides/ui/search/
+import { SearchHeader } from "@/features/rides/ui/search/search-header";
+import { SearchInput } from "@/features/rides/ui/search/search-input";
+// ... other imports
+
 export default function SearchScreen() {
   return (
     <SafeAreaView>
@@ -109,7 +119,7 @@ export default function SearchScreen() {
         <SearchLoadingState /> {/* Uses store + hook, no props */}
         <SearchErrorCard /> {/* Uses store + hook, no props */}
         <SearchResults /> {/* Uses store + hook, no props */}
-        <NoResults /> {/* Uses store + hook, no props */}
+        <SearchNoResults /> {/* Uses store + hook, no props */}
       </View>
     </SafeAreaView>
   );

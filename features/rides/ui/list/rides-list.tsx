@@ -1,6 +1,6 @@
 import { useRides } from "@/features/rides/api/use-rides";
 import { RideCard } from "./ride-card";
-import { FindRideCard } from "./find-ride-card";
+import { FindRideCard } from "../find-ride-card";
 
 export function RidesList() {
   const { data: rides, isLoading, error } = useRides();

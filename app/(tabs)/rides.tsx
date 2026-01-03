@@ -1,9 +1,9 @@
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RidesHeader } from "@/features/rides/ui/rides-header";
-import { RidesLoadingState } from "@/features/rides/ui/rides-loading-state";
-import { RidesErrorCard } from "@/features/rides/ui/rides-error-card";
-import { RidesList } from "@/features/rides/ui/rides-list";
+import { RidesHeader } from "@/features/rides/ui/list/rides-header";
+import { RidesLoadingState } from "@/features/rides/ui/list/rides-loading-state";
+import { RidesErrorCard } from "@/features/rides/ui/list/rides-error-card";
+import { RidesList } from "@/features/rides/ui/list/rides-list";
 import { RidesHelpCard } from "@/features/rides/ui/rides-help-card";
 
 export default function RidesScreen() {

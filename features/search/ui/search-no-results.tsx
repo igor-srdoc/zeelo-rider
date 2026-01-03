@@ -1,18 +1,11 @@
 import { View, Text } from "react-native";
+import { useSearchRides } from "@/features/rides/api/use-search-rides";
+import { useSearchStore } from "../search.store";
 
-type NoResultsProps = {
-  searchQuery: string;
-  rides: any[] | undefined;
-  isLoading: boolean;
-  error: unknown;
-};
+export function SearchNoResults() {
+  const { searchQuery } = useSearchStore();
+  const { data: rides, isLoading, error } = useSearchRides(searchQuery);
 
-export function NoResults({
-  searchQuery,
-  rides,
-  isLoading,
-  error,
-}: NoResultsProps) {
   if (isLoading || error || searchQuery.length === 0 || rides?.length !== 0) {
     return null;
   }
@@ -23,4 +16,3 @@ export function NoResults({
     </View>
   );
 }
-

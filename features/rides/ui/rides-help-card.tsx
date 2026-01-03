@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export function HelpCard() {
+export function RidesHelpCard() {
   return (
     <View className="bg-white rounded-2xl p-4 mb-3 shadow-sm">
       <View className="flex-row">

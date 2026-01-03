@@ -1,5 +1,6 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable, Text } from "react-native";
 import { useRides } from "@/features/rides/api/use-rides";
+import { PageTitle } from "@/ui/page-title";
 
 export function RidesHeader() {
   const { data: rides } = useRides();
@@ -7,7 +8,7 @@ export function RidesHeader() {
 
   return (
     <View className="flex-row justify-between items-center mt-4 mb-4">
-      <Text className="text-3xl font-bold text-gray-900">Rides</Text>
+      <PageTitle title="Rides" />
       {hasRides && (
         <Pressable>
           <Text className="text-violet-600 font-medium">See all</Text>
@@ -16,4 +17,3 @@ export function RidesHeader() {
     </View>
   );
 }
-

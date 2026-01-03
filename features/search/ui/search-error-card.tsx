@@ -1,16 +1,9 @@
-import { View, Text } from "react-native";
+import { useSearchRides } from "@/features/rides/api/use-search-rides";
+import { useSearchStore } from "../search.store";
+import { ErrorCard } from "@/ui/error-card";
 
-type SearchErrorCardProps = {
-  error: unknown;
-};
-
-export function SearchErrorCard({ error }: SearchErrorCardProps) {
-  if (!error) return null;
-
-  return (
-    <View className="bg-red-50 rounded-xl p-4 mb-3">
-      <Text className="text-red-600">Failed to search rides</Text>
-    </View>
-  );
+export function SearchErrorCard() {
+  const { searchQuery } = useSearchStore();
+  const { error } = useSearchRides(searchQuery);
+  return <ErrorCard error={error} label="Failed to search rides" />;
 }
-

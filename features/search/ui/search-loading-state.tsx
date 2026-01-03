@@ -1,16 +1,9 @@
-import { View, ActivityIndicator } from "react-native";
+import { useSearchRides } from "@/features/rides/api/use-search-rides";
+import { useSearchStore } from "../search.store";
+import { LoadingState } from "@/ui/loading-state";
 
-type SearchLoadingStateProps = {
-  isLoading: boolean;
-};
-
-export function SearchLoadingState({ isLoading }: SearchLoadingStateProps) {
-  if (!isLoading) return null;
-
-  return (
-    <View className="py-8 items-center">
-      <ActivityIndicator size="large" color="#7C3AED" />
-    </View>
-  );
+export function SearchLoadingState() {
+  const { searchQuery } = useSearchStore();
+  const { isLoading } = useSearchRides(searchQuery);
+  return <LoadingState isLoading={isLoading} />;
 }
-

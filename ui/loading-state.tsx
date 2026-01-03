@@ -1,9 +1,10 @@
 import { View, ActivityIndicator } from "react-native";
-import { useRides } from "@/features/rides/api/use-rides";
 
-export function LoadingState() {
-  const { isLoading } = useRides();
+type LoadingStateProps = {
+  isLoading: boolean;
+};
 
+export function LoadingState({ isLoading }: Readonly<LoadingStateProps>) {
   if (!isLoading) return null;
 
   return (

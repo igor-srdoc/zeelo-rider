@@ -1,14 +1,12 @@
 import { View, Text } from "react-native";
-import type { Ride } from "@/features/rides/api/use-rides";
 import { RideCard } from "@/features/rides/ui/ride-card";
+import { useSearchRides } from "@/features/rides/api/use-search-rides";
+import { useSearchStore } from "../search.store";
 
-type SearchResultsProps = {
-  rides: Ride[] | undefined;
-  isLoading: boolean;
-  error: unknown;
-};
+export function SearchResults() {
+  const { searchQuery } = useSearchStore();
+  const { data: rides, isLoading, error } = useSearchRides(searchQuery);
 
-export function SearchResults({ rides, isLoading, error }: SearchResultsProps) {
   if (isLoading || error || !rides || rides.length === 0) return null;
 
   return (

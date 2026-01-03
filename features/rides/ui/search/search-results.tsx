@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { RideCard } from "@/features/rides/ui/list/ride-card";
 import { useSearchRides } from "@/features/rides/api/use-search-rides";
-import { useSearchStore } from "../../search.store";
+import { useSearchStore } from "../../state/search.store";
 
 export function SearchResults() {
   const { searchQuery } = useSearchStore();

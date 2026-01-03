@@ -1,6 +1,6 @@
 import { View, TextInput, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useSearchStore } from "../../search.store";
+import { useSearchStore } from "../../state/search.store";
 
 export function SearchInput() {
   const { searchQuery, setSearchQuery } = useSearchStore();

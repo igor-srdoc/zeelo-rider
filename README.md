@@ -33,7 +33,7 @@ zeelo-rider/
 ├── features/              # Feature modules
 │   └── rides/
 │       ├── api/          # Data fetching hooks
-│       ├── search.store.ts # Search state management
+│       ├── state/        # State management (Zustand)
 │       └── ui/           # UI components by view context
 │           ├── list/     # Rides list view components
 │           └── search/   # Search view components
@@ -87,6 +87,7 @@ After starting the dev server, you can:
 
 - **`app/(tabs)/`** - Screen files (composition only, no business logic)
 - **`features/rides/api/`** - React Query hooks for data fetching
+- **`features/rides/state/`** - Zustand stores for state management
 - **`features/rides/ui/list/`** - Components for the rides list view
 - **`features/rides/ui/search/`** - Components for the search view
 - **`lib/`** - Shared utilities (Supabase client, helpers)

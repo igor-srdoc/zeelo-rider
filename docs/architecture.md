@@ -21,7 +21,8 @@ zeelo-rider/
 │   │   ├── api/                 # Data fetching hooks
 │   │   │   ├── use-rides.ts
 │   │   │   └── use-search-rides.ts
-│   │   ├── search.store.ts      # Zustand state management for search
+│   │   ├── state/               # State management
+│   │   │   └── search.store.ts  # Zustand search state
 │   │   └── ui/                  # UI components organized by context
 │   │       ├── find-ride-card.tsx     # Main screen cards
 │   │       ├── rides-help-card.tsx
@@ -56,7 +57,7 @@ zeelo-rider/
 The `rides` feature contains all rides-related functionality:
 
 - **`api/`** - Data fetching logic (React Query hooks)
-- **`search.store.ts`** - State management for search functionality (Zustand store)
+- **`state/`** - State management (Zustand stores)
 - **`ui/`** - UI components organized by view context:
   - **`list/`** - Components for the rides list view
   - **`search/`** - Components for the search view
@@ -98,7 +99,7 @@ Each component:
 ## Example: Search Screen with Zustand
 
 ```tsx
-// features/rides/search.store.ts
+// features/rides/state/search.store.ts
 export const useSearchStore = create<SearchStore>((set) => ({
   searchQuery: "",
   setSearchQuery: (query) => set({ searchQuery: query }),

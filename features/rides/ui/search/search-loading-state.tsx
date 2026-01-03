@@ -1,5 +1,5 @@
 import { useSearchRides } from "@/features/rides/api/use-search-rides";
-import { useSearchStore } from "../../search.store";
+import { useSearchStore } from "../../state/search.store";
 import { LoadingState } from "@/ui/loading-state";
 
 export function SearchLoadingState() {

@@ -19,7 +19,10 @@ export function useRides() {
         .select("*")
         .order("date", { ascending: true });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
       return data as Ride[];
     },
   });

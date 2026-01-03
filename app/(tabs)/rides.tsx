@@ -10,6 +10,109 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRides, type Ride } from "@/hooks/use-rides";
 import { formatDate, formatPrice } from "@/lib/utils";
 
+export default function RidesScreen() {
+  return (
+    <SafeAreaView className="flex-1 bg-gray-100">
+      <ScrollView className="flex-1 px-4">
+        <RidesHeader />
+        <LoadingState />
+        <ErrorCard />
+        <RidesList />
+        <HelpCard />
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+function RidesHeader() {
+  const { data: rides } = useRides();
+  const hasRides = rides && rides.length > 0;
+
+  return (
+    <View className="flex-row justify-between items-center mt-4 mb-4">
+      <Text className="text-3xl font-bold text-gray-900">Rides</Text>
+      {hasRides && (
+        <Pressable>
+          <Text className="text-violet-600 font-medium">See all</Text>
+        </Pressable>
+      )}
+    </View>
+  );
+}
+
+function LoadingState() {
+  const { isLoading } = useRides();
+
+  if (!isLoading) return null;
+
+  return (
+    <View className="py-8 items-center">
+      <ActivityIndicator size="large" color="#7C3AED" />
+    </View>
+  );
+}
+
+function ErrorCard() {
+  const { error } = useRides();
+
+  const getErrorMessage = (error: unknown): string => {
+    if (error instanceof Error) {
+      return error.message;
+    }
+    if (typeof error === "object" && error !== null && "message" in error) {
+      return String((error as any).message);
+    }
+    return "Unknown error";
+  };
+
+  const getErrorHint = (error: unknown): string | null => {
+    if (typeof error === "object" && error !== null && "hint" in error) {
+      return String((error as any).hint);
+    }
+    return null;
+  };
+
+  if (!error) return null;
+
+  return (
+    <View className="bg-red-50 rounded-xl p-4 mb-3">
+      <View className="flex-row items-center mb-2">
+        <Ionicons name="warning" size={20} color="#DC2626" />
+        <Text className="text-red-600 font-semibold ml-2">
+          Failed to load rides
+        </Text>
+      </View>
+      <Text className="text-red-500 text-sm mb-1">
+        {getErrorMessage(error)}
+      </Text>
+      {getErrorHint(error) && (
+        <Text className="text-red-400 text-xs italic">
+          {getErrorHint(error)}
+        </Text>
+      )}
+    </View>
+  );
+}
+
+function RidesList() {
+  const { data: rides, isLoading, error } = useRides();
+  const hasRides = rides && rides.length > 0;
+
+  if (isLoading || error) return null;
+
+  if (hasRides) {
+    return (
+      <>
+        {rides.map((ride) => (
+          <RideCard key={ride.id} ride={ride} />
+        ))}
+      </>
+    );
+  }
+
+  return <FindRideCard />;
+}
+
 function RideCard({ ride }: { ride: Ride }) {
   return (
     <Pressable className="bg-white rounded-2xl p-4 mb-3 shadow-sm">
@@ -86,57 +189,5 @@ function HelpCard() {
         </View>
       </View>
     </View>
-  );
-}
-
-export default function RidesScreen() {
-  const { data: rides, isLoading, error } = useRides();
-
-  const hasRides = rides && rides.length > 0;
-
-  return (
-    <SafeAreaView className="flex-1 bg-gray-100">
-      <ScrollView className="flex-1 px-4">
-        {/* Header */}
-        <View className="flex-row justify-between items-center mt-4 mb-4">
-          <Text className="text-3xl font-bold text-gray-900">Rides</Text>
-          {hasRides && (
-            <Pressable>
-              <Text className="text-violet-600 font-medium">See all</Text>
-            </Pressable>
-          )}
-        </View>
-
-        {/* Loading state */}
-        {isLoading && (
-          <View className="py-8 items-center">
-            <ActivityIndicator size="large" color="#7C3AED" />
-          </View>
-        )}
-
-        {/* Error state */}
-        {error && (
-          <View className="bg-red-50 rounded-xl p-4 mb-3">
-            <Text className="text-red-600">Failed to load rides</Text>
-          </View>
-        )}
-
-        {/* Rides list or empty state */}
-        {!isLoading &&
-          !error &&
-          (hasRides ? (
-            <>
-              {rides.map((ride) => (
-                <RideCard key={ride.id} ride={ride} />
-              ))}
-            </>
-          ) : (
-            <FindRideCard />
-          ))}
-
-        {/* Help card - always shown */}
-        <HelpCard />
-      </ScrollView>
-    </SafeAreaView>
   );
 }

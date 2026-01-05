@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import type { Ride } from "./use-rides";
 
 export function useSearchRides(query: string) {
   return useQuery({
@@ -15,7 +14,7 @@ export function useSearchRides(query: string) {
         .order("date", { ascending: true });
 
       if (error) throw error;
-      return data as Ride[];
+      return data;
     },
     enabled: query.trim().length > 0,
   });

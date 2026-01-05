@@ -1,15 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 
-export type Ride = {
-  id: string;
-  origin: string;
-  destination: string;
-  date: string;
-  time: string;
-  price: number;
-};
-
 export function useRides() {
   return useQuery({
     queryKey: ["rides"],
@@ -23,8 +14,7 @@ export function useRides() {
         console.error("Supabase error:", error);
         throw error;
       }
-      return data as Ride[];
+      return data;
     },
   });
 }
-

@@ -1,7 +1,9 @@
 import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import type { Ride } from "@/features/rides/api/use-rides";
+import type { Database } from "@/supabase/database.types";
 import { formatDate, formatPrice } from "@/lib/utils";
+
+type Ride = Database["public"]["Tables"]["rides"]["Row"];
 
 export function RideCard({ ride }: { ride: Ride }) {
   return (
@@ -32,4 +34,3 @@ export function RideCard({ ride }: { ride: Ride }) {
     </Pressable>
   );
 }
-
